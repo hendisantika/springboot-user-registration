@@ -1,11 +1,17 @@
 package com.hendisantika.springbootuserregistration.service;
 
+import com.hendisantika.springbootuserregistration.entity.User;
 import com.hendisantika.springbootuserregistration.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.text.MessageFormat;
+import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA.
@@ -39,5 +45,15 @@ public class UserService implements UserDetailsService {
                         + token);
 
         emailSenderService.sendEmail(mailMessage);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        final Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        return optionalUser.orElseThrow(() -> new UsernameNotFoundException(MessageFormat.format("User with email {0}" +
+                " cannot be found.", email)));
+
     }
 }
