@@ -16,7 +16,7 @@ import java.util.Optional;
  * Time: 07.57
  */
 @Repository
-interface UserRepository extends CrudRepository<User, Long> {
+public interface UserRepository extends CrudRepository<User, Long> {
 
     Optional<User> findByEmail(String email);
 }
