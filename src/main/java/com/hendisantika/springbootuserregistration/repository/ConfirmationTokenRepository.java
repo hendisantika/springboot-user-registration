@@ -16,7 +16,7 @@ import java.util.Optional;
  * Time: 07.59
  */
 @Repository
-interface ConfirmationTokenRepository extends CrudRepository<ConfirmationToken, Long> {
+public interface ConfirmationTokenRepository extends CrudRepository<ConfirmationToken, Long> {
 
     Optional<ConfirmationToken> findConfirmationTokenByConfirmationToken(String token);
 }
