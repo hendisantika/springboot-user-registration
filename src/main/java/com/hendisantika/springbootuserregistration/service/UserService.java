@@ -1,5 +1,6 @@
 package com.hendisantika.springbootuserregistration.service;
 
+import com.hendisantika.springbootuserregistration.entity.ConfirmationToken;
 import com.hendisantika.springbootuserregistration.entity.User;
 import com.hendisantika.springbootuserregistration.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -54,6 +55,22 @@ public class UserService implements UserDetailsService {
 
         return optionalUser.orElseThrow(() -> new UsernameNotFoundException(MessageFormat.format("User with email {0}" +
                 " cannot be found.", email)));
+
+    }
+
+    public void signUpUser(User user) {
+
+        final String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+
+        user.setPassword(encryptedPassword);
+
+        final User createdUser = userRepository.save(user);
+
+        final ConfirmationToken confirmationToken = new ConfirmationToken(user);
+
+        confirmationTokenService.saveConfirmationToken(confirmationToken);
+
+        sendConfirmationMail(user.getEmail(), confirmationToken.getConfirmationToken());
 
     }
 }

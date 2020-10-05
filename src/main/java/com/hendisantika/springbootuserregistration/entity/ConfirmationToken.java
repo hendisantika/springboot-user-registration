@@ -41,7 +41,7 @@ public class ConfirmationToken {
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
-    ConfirmationToken(User user) {
+    public ConfirmationToken(User user) {
         this.user = user;
         this.createdDate = LocalDate.now();
         this.confirmationToken = UUID.randomUUID().toString();
