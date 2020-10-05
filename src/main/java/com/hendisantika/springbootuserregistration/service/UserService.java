@@ -35,7 +35,7 @@ public class UserService implements UserDetailsService {
 
     private final EmailSenderService emailSenderService;
 
-    void sendConfirmationMail(String userMail, String token) {
+    public void sendConfirmationMail(String userMail, String token) {
         final SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(userMail);
         mailMessage.setSubject("Mail Confirmation Link!");
@@ -74,7 +74,7 @@ public class UserService implements UserDetailsService {
 
     }
 
-    void confirmUser(ConfirmationToken confirmationToken) {
+    public void confirmUser(ConfirmationToken confirmationToken) {
 
         final User user = confirmationToken.getUser();
 
