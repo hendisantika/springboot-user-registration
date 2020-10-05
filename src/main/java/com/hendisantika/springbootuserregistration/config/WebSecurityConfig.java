@@ -1,5 +1,6 @@
 package com.hendisantika.springbootuserregistration.config;
 
+import com.hendisantika.springbootuserregistration.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
